@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+
+{% block page_title %}
+    AskMate | Welcome
+{% endblock %}
+
+
+{% block style_url %}
+    {{ url_for("static",filename="style.css") }}
+{% endblock %}
+
+
+{% block title %}
+    LAK Team: Ask Mate
+{% endblock %}
+
+
+{% block header_button %}
+    <a class="add_question" href="{{ url_for("user_page") }}">User: {{ name }}</a>
+    <a class="add_question" href="{{ url_for("add_question") }}">Ask a question</a>
+{% endblock %}
+
+
+{% block content %}
+    <table>
+        <tr>
+            {%if ascending == True%}
+                <th><a class="sort" href="/list?order_by=id&order_direction=descending">Id</a></th>
+                <th><a class="sort" href="/list?order_by=submission_time&order_direction=descending">Date of submission</a></th>
+                <th><a class="sort" href="/list?order_by=title&order_direction=descending">Title</a></th>
+                <th><a class="sort" href="/list?order_by=message&order_direction=descending">Message</a></th>
+                <th><a class="sort" href="/list?order_by=vote_number&order_direction=descending">Vote count</a></th>
+            {%elif ascending == False%}
+                <th><a class="sort" href="/list?order_by=id&order_direction=ascending">Id</a></th>
+                <th><a class="sort" href="/list?order_by=submission_time&order_direction=ascending">Date of submission</a></th>
+                <th><a class="sort" href="/list?order_by=title&order_direction=ascending">Title</a></th>
+                <th><a class="sort" href="/list?order_by=message&order_direction=ascending">Message</a></th>
+                <th><a class="sort" href="/list?order_by=vote_number&order_direction=ascending">Vote count</a></th>
+            {%endif%}
+        </tr>
+            {% for row in questions %}
+                <tr class="table_style">
+                    <td>{{ row['id'] }}</td>
+                    <td>{{ row['submission_time'] }}</td>
+                    <td><a href="/question/{{ row ['id'] }}/view">{{ row['title'] }}</a></td>
+                    <td>{{ row['message'] }}</td>
+                    <td>{{ row['vote_number'] }}</td>
+                </tr>
+            {% endfor %}
+        <div id="search_line">
+            <form action="/search"  method="get">
+                    <input type="text" name="keyword" id="searchbar">
+                    <button type="submit" id="search_button">Search</button>
+            </form>
+        </div>
+    </table>
+    </table>
+{% endblock %}

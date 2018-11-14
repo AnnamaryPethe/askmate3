@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Ask mate | LAK</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" />
+        <link rel="stylesheet" type="text/css" href="{% block style_url %}{% endblock %}">
+        <link rel='shortcut icon' type='image/x-icon' href='/static/favicon.ico' />
+    </head>
+    <body>
+        {% block script %}{% endblock %}
+        <div id="navbar">
+             <table class="main_title" width="100%">
+                <tr>
+                    <td width="30%">{% block title %}{% endblock %}</td>
+                    <td width="70%">
+                        {% block header_button %}{% endblock %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-container-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+
+
+
+        <div class="main_content">
+            {% block content %}{% endblock %}
+        </div>
+
+        <script>
+            function openForm(form_id) {
+            document.getElementById(form_id).style.display = "block";
+            }
+
+            function closeForm(button_id) {
+            document.getElementById(button_id).style.display = "none";
+            }
+        </script>
+    </body>
+</html>

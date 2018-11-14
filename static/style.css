@@ -1,0 +1,267 @@
+html, body {
+    width: 100%;
+    font-family: "Arial";
+    height: 100%;
+    margin:0px;
+    background-size: cover;
+    background: white url("Blue-Background.jpg") no-repeat fixed center center;
+}
+
+.comments_invisible {
+    display: none;
+}
+.form_group {
+    display: none;
+}
+
+.question_comment {
+    display: none;
+}
+
+/*---------------Main table on the index page--------------*/
+table {
+    border-collapse: collapse;
+    width:85%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 300px;
+}
+td {
+    text-align: center;
+    padding: 8px;
+}
+
+th {
+    background-color: #006699;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    font-size: 15px;
+}
+.main_content{
+    width: 90%;
+    max-width: 1200px;
+    margin: 110px auto 30px;
+}
+
+.table_style{
+
+}
+
+/*----------------Edit question button----------------*/
+.add_question {
+    background-color: #00334d ;
+    color: white;
+    padding: 3px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 250px;
+}
+
+a {
+    background-color: #00334d ;
+    color: white;
+    padding: 3px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 150px;
+}
+
+
+/*-----------------SORTING BUTTONS---------------*/
+.sort {
+    background-color: #006699 ;
+    color: white;
+    padding: 0px 0px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 80px;
+}
+.sort:hover {
+    box-shadow: 0 30px 30px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+a:hover, a:active {
+    background-color: dodgerblue;
+    box-shadow: 0 30px 30px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+
+
+/*-----------------------FLOATING STICKY HEADER-------------------*/
+#navbar {
+    overflow: hidden;
+    background-color: #00334d;
+    margin-bottom: 80px;
+}
+#navbar a {
+  float: right;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 20px;
+  text-decoration: none;
+}
+.content {
+  padding: 16px;
+  color: white;
+}
+.search {
+  padding: 16px;
+  color: black;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.sticky + .content {
+  padding-top: 60px;
+}
+table.main_title tr{
+    color: white;
+    text-align: left;
+    font-size: 22px;
+}
+
+button {
+    background-color: #00334d;
+    color: white;
+    border-color: #00334d;
+}
+
+
+/*--------------------DELETE BUTTONS-------------------*/
+.delete_button {
+    background-color: white;
+    border: 2px solid red;
+    color: red;
+    padding: 4px 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+}
+.delete_answer_button {
+    background-color: white;
+    border: 2px solid red;
+    color: red;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+
+}
+.delete_button:hover {
+    background-color: red;
+    color: white;
+}
+.delete_answer_button:hover{
+    background-color: red;
+    color: white;
+}
+
+
+/*---------------QUESTION INFO------------------*/
+.question_details{
+    font-size: 25px;
+    text-align: center;
+}
+
+/*----------------DELETE ANSWER BUTTON CELL-----------*/
+.delete_answ_cell{
+    horiz-align: center;
+    text-align: center;
+}
+
+/*---------------QUESTION FORM-------------------------*/
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #00334d;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: dodgerblue;
+}
+textarea {
+    width: 100%;
+}
+.question_form {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.answer_comment_header {
+    background-color: #006699;
+}
+
+.answer_comment td {
+    background-color: #006699;
+    font-size: 15px;
+}
+
+#searchbar {
+    width: 80%;
+}
+
+#search_button {
+    width: 18%;
+    background-color: #00334d;
+    color: white;
+    border-color: #00334d;
+    height: 40px;
+    ;
+}
+
+
+#search_line {
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.flash-container-red {
+    width: 100%;
+    text-align: center;
+    background-color: red;
+    color: black;
+    font-size: 25px;
+}
+
+.flash-container-green {
+    width: 100%;
+    text-align: center;
+    background-color: forestgreen;
+    color: black;
+    font-size: 25px;
+}

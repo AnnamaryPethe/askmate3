@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+
+
+{% block page_title %}
+    AskMate | USER PAGE
+{% endblock %}
+
+
+
+{% block style_url %}
+    {{ url_for("static",filename="style.css") }}
+{% endblock %}
+
+
+
+{% block title %}
+   USER: {{ name }}
+{% endblock %}
+
+
+
+{% block header_button %}
+    <a href="{{ url_for("index") }}">Back</a>
+    <a href="{{ url_for("logout") }}">Log out</a>
+{% endblock %}
+
+
+
+{% block content %}
+    <h1>Questions</h1>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Date of submission</th>
+            <th>Title</th>
+            <th>Message</th>
+            <th>Vote count</th>
+        </tr>
+            {% for question in questions %}
+                <tr class="table_style">
+                    <td><a href="{{ url_for("question_details",question_id=question.id) }}">{{ question.id }}</a></td>
+                    <td>{{ question.submission_time }}</td>
+                    <td>{{ question.title }}</td>
+                    <td>{{ question.message }}</td>
+                    <td>{{ question.vote_message }}</td>
+                </tr>
+            {% endfor %}
+    </table>
+
+
+    <h1>Answers</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Date of submission</th>
+            <th>Message</th>
+            <th>Vote count</th>
+            <th>Vote</th>
+        </tr>
+        {% for answer in answers %}
+            <tr>
+                <td><a href="{{ url_for("question_details",question_id=answer.question_id) }}">{{ answer.id }}</a></td>
+                <td>{{ answer.submission_time }}</td>
+                <td>{{ answer.message }}</td>
+                <td>{{ answer.vote_number }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+
+    <h1>Comments</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Message</th>
+            <th>Submission Time</th>
+            <th>Edited</th>
+        </tr>
+            {% for comment in comments %}
+                <tr>
+                    <td><a href="{{ url_for("question_details",question_id=comment.question_id) }}">{{ comment.id }}</a></td>
+                    <td>{{ comment.message }}</td>
+                    <td>{{ comment.submission_time }}</td>
+                    <td>{{ comment.edited }}</td>
+                </tr>
+            {% endfor %}
+    </table>
+
+
+{% endblock %}

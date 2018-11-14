@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+
+
+{% block page_title %}
+    AskMate | Search
+{% endblock %}
+
+
+
+{% block style_url %}
+    {{ url_for("static",filename="style.css") }}
+{% endblock %}
+
+
+
+{% block title %}
+   Search
+{% endblock %}
+
+
+
+
+{% block content %}
+    <table>
+        {% for question in questions %}
+            <tr class="search">
+                <td>{{ question.id }}</td>
+                <td>{{ question.submission_time }}</td>
+                <td><a href="{{ url_for("question_details",question_id=question.id) }}">{{ question.title }}</a></td>
+                <td>{{ question.message }}</td>
+            </tr>
+        {% endfor %}
+        {% for answer in answers %}
+            <tr class="search">
+                <td>{{ answer.id }}</td>
+                <td>{{ answer.submission_time }}</td>
+                <td><a href="{{ url_for("question_details",question_id=answer.question_id) }}">Link to question</a></td>
+                <td>{{ answer.message }}</td>
+            </tr>
+        {% endfor %}
+    <form action="{{ url_for("search") }}" method="get">
+            <label>Search
+                <input type="text" name="keyword">
+            </label>
+            <button type="submit">Search</button>
+        </form>
+    <form action="{{ url_for("index") }}" method="get">
+        <button type="submit" class="myButton">Back to menu</button>
+    </form>
+    </table>
+{% endblock %}

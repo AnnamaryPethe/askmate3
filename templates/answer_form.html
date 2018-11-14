@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+
+
+{% block page_title %}
+    <title>
+        {% if edit %}
+            AskMate | Edit Answer
+        {% else %}
+            AskMate | New Answer
+        {% endif %}
+    </title>
+{% endblock %}
+
+
+
+{% block title %}
+    {% if edit %}
+        Edit Answer
+    {% else %}
+        New Answer
+    {% endif %}
+{% endblock %}
+
+
+
+{% block header_button %}
+    <a href="{{ url_for("index") }}">Cancel</a>
+{% endblock %}
+
+
+
+{% block style_url %}
+    {{ url_for("static",filename="style.css") }}
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="question_form">
+        {% if edit %}
+            <form action="{{ url_for('edit_answer',answer_id=answer.id) }}" method="POST">
+        {% else %}
+            <form action="{{ url_for('add_answer',question_id=question_id) }}" method="POST">
+        {% endif %}
+            <p>
+                <b><label for="title">Question title:</label></b><br>
+                <input type="text" name="title" id="title" minlength=5 required value="{{ edit.title }}">
+            </p>
+            <p>
+                <b><label for="message">Question:</label></b><br>
+                <textarea id="message" name="message" cols="20" rows="3" required>{{ edit.message }}</textarea>
+            </p>
+            <p>
+                {% if edit %}
+                    <input type="submit" value="Edit Answer">
+                {% else %}
+                    <input type="submit" value="New Answer">
+                {% endif %}
+            </p>
+        </form>
+    </div>
+{% endblock %}

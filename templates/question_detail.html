@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    AskMate | Question details
+{% endblock %}
+
+
+{% block style_url %}
+    {{ url_for("static",filename="style.css") }}
+{% endblock %}
+
+{% block title %}
+    {{ question.id}}: {{ question.title }}
+{% endblock %}
+
+
+{% block header_button %}
+    <a href="{{ url_for("index") }}">Back</a>
+    <a href="{{ url_for("add_answer",question_id=question.id) }}">Answer</a>
+    {% if user_id == question.user_id %}
+        <a href="{{ url_for("edit_question",question_id=question.id) }}">Edit</a>
+    {% endif %}
+    <a href="{{ url_for("vote_on_question", question_id=question.id, vote="down" ) }}">Down</a>
+    <a href="{{ url_for("vote_on_question", question_id=question.id, vote="up" ) }}">Up</a>
+{% endblock %}
+
+
+{% block content %}
+    <table>
+        <tr>
+            <td>
+                <p class="question_details">
+                    <b>
+                        Posted: {{ question.submission_time }} |
+                        Vote count: {{ question.vote_number }} |
+                        View number: {{ question.view_number }}
+                    </b>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>{{ question.message }}</b>
+            </td>
+        {% if user_id == question.user_id %}
+            <tr>
+                <td class="delete_answ_cell">
+                    <form action="{{ url_for("delete_question",question_id=question.id) }}">
+                        <button class="delete_button">Delete question</button>
+                    </form>
+                </td>
+            </tr>
+        {% endif %}
+    </table>
+
+    <h2>Comments</h2>
+    <button type="button" data-id="question{{ question.id }}" onclick="openForm(this.dataset['id']); closeForm(this.id)" id="button{{ question.id }}">Comment</button>
+    <div id="question{{ question.id }}" class="question_comment">
+        <form action="{{ url_for("add_comment", question_id=question.id) }}" method='POST'>
+            <p>
+                <b><label for="message">New comment:</label></b><br>
+                <textarea id="message" name="message" cols="20" rows="3" required></textarea>
+            </p>
+            <p>
+                <input type="submit" id="question_comment_button" value="Submit comment">
+            </p>
+        </form>
+    </div>
+
+    <table id="t03">
+        <tr>
+            <th>ID</th>
+            <th>Message</th>
+            <th>Submission Time</th>
+            <th>Edited</th>
+            <th>Delete</th>
+        </tr>
+        {% for comment in comments %}
+            {% if not comment.answer_id %}
+                <tr>
+                    <td>{{ comment.id }}</td>
+                    <td>{{ comment.message }}</td>
+                    <td>{{ comment.submission_time }}</td>
+                    <td>{{ comment.edited }}</td>
+                    <td class="delete_answ_cell">
+                        {% if user_id == comment.user_id %}
+                            <form action="{{ url_for("delete_comment",question_id=question.id,comment_id=comment.id) }}">
+                                <button class="delete_button">Delete question</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+
+
+    <h1>Answers</h1>
+    <table id="t01">
+        <tr>
+            <th>ID</th>
+            <th>Date of submission</th>
+            <th>Message</th>
+            <th>Vote count</th>
+            <th>Vote</th>
+            <th>
+                Delete answer
+            </th>
+            <th>Leave a comment</th>
+        </tr>
+
+        {% for answer in answers %}
+            <tr>
+                <td>{{ answer.id }}</td>
+                <td>{{ answer.submission_time }}</td>
+                <td>{{ answer.message }}</td>
+                <td>{{ answer.vote_number }}</td>
+                <td>
+                    <a href="{{ url_for("vote_on_answer", answer_id=answer.id, vote="up" ) }}">up</a>
+                    <a href="{{ url_for("vote_on_answer", answer_id=answer.id, vote="down" ) }}">down</a>
+                </td>
+                <td>
+                    {% if user_id == answer.user_id %}
+                        <a href="{{ url_for("delete_answer",question_id=question.id,answer_id=answer.id) }}" class="delete_answer_button">Delete</a>
+                    {% endif %}
+                </td>
+                <td>
+                    <button type="button" data-id="answer{{ answer.id }}" onclick="openForm(this.dataset['id']); closeForm(this.id)" id="button{{ answer.id }}">Comment</button>
+                    <div class="form_group" id="answer{{ answer.id }}">
+                        <form action="{{ url_for('add_comment',question_id=question.id, answer_id=answer.id) }}"  class="popup_form" method='POST'>
+                            <b><label for="{{ answer.id }}">New comment:</label></b><br>
+                            <textarea id="{{ answer.id }}" name="message" cols="20" rows="3" required></textarea>
+                            <input type="submit" id="answer_comment_button" value="Submit comment">
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% if answer.id in comments|map(attribute="answer_id") %}
+
+                    <tr>
+                        <div class="comments">
+                            <th class="answer_comment_header">ID</th>
+                            <th class="answer_comment_header">Message</th>
+                            <th class="answer_comment_header">Submission Time</th>
+                            <th class="answer_comment_header">Edited</th>
+                            <th class="answer_comment_header">Delete</th>
+                        </div>
+                    </tr>
+
+                {% for comment in comments %}
+                    {% if comment.answer_id == answer.id %}
+                        <tr class="answer_comment">
+                            <td>{{ comment.id }}</td>
+                            <td>{{ comment.message }}</td>
+                            <td>{{ comment.submission_time }}</td>
+                            <td>{{ comment.edited }}</td>
+                            <td>
+                                {% if user_id == comment.user_id %}
+                                    <a href="{{ url_for("delete_comment",question_id=question.id,comment_id=comment.id) }}" class="delete_answer_button">Delete</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </table>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block page_title %}
+    AskMate | ERROR: 403
+{% endblock %}
+
+
+{% block style_url %}
+    {{ url_for("static",filename="style.css") }}
+{% endblock %}
+
+{% block title %}
+    ERROR: 403
+{% endblock %}
+
+
+{% block header_button %}
+    <a href="{{ url_for("entrance") }}">Login / Reqister</a>
+{% endblock %}
+
+
+{% block content %}
+    <img src="{{ url_for("static",filename="403forbiddenerror.jpg") }}">
+{% endblock %}
+
